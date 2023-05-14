@@ -1,0 +1,29 @@
+name: Auto deploy (production)
+on:
+  push:
+    branches:
+      - master
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    # Set job outputs to values from filter step
+    outputs:
+      suess: ${{ steps.filter.outputs.suess }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            suess:
+              - 'modules/suess/**'
+  auto-deploy-suess:
+    needs: [changes]
+    # Run if: suess has changed
+    if: ${{ always() && needs.changes.outputs.suess == 'true' }}
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      heroku-app: stellar-backend
+      module: suess
+    secrets:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}

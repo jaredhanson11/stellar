@@ -1,0 +1,31 @@
+name: Deploy
+on:
+  workflow_call:
+    inputs:
+      heroku-app:
+        required: true
+        type: string # heroku app name | stellar-backend
+      module:
+        required: true
+        type: string # suess
+    secrets:
+      HEROKU_API_KEY:
+        required: true
+jobs:
+  deploy-suess:
+    runs-on: ubuntu-latest
+    steps:
+      - run: "echo Deploying module: '/modules/${{ inputs.module }}' to Heroku app: '${{ inputs.heroku-app }}'"
+      - uses: actions/checkout@v2
+      - uses: Summ-Technologies/heroku-config@v1.0.0
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ inputs.heroku-app }}
+          envfile_path: modules/${{ inputs.module }}/.env.prod
+      - uses: gonuit/heroku-docker-deploy@v1.3.3
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ inputs.heroku-app }}
+          email: "jred0011@gmail.com"
+          dockerfile_directory: "./modules/${{ inputs.module }}/"
+          dockerfile_name: "Dockerfile"

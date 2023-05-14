@@ -1,0 +1,13 @@
+*.pyc
+*.egg*
+venv
+.env*
+!.env.prod
+.vscode
+__pycache__
+.project
+.settings
+.DS_Store
+.mypy_cache
+setup.cfg
+app.log*

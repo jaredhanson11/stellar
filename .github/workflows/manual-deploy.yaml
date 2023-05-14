@@ -1,0 +1,21 @@
+name: Manual deploy (production)
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: "The app to deploy"
+        required: true
+        type: choice
+        options:
+          - suess
+jobs:
+  manual-deploy-hawk:
+    needs: manual-publish-libs
+    # Run if: (app = suess) and (branch = master)
+    if: ${{ always() && github.event.inputs.app == 'suess' &&  github.ref == 'refs/heads/master' }}
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      heroku-app: stellar-backend
+      module: suess
+    secrets:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
