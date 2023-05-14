@@ -4,7 +4,7 @@ FROM jaredhanson11/serverbase
 RUN apt-get update && apt-get upgrade -y
 
 # Install required packages
-COPY requirements.txt ./requirements.txt
+COPY ./REQUIRES ./requirements.txt
 RUN apt-get install -y libpq-dev python3-dev gcc \
     && pip install --no-cache -r requirements.txt \
     && rm requirements.txt
