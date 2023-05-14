@@ -77,9 +77,7 @@ def setup_webargs() -> None:
     parser.DEFAULT_UNKNOWN_BY_LOCATION.update({"json": EXCLUDE})
 
 
-def setup_exception_handling(
-    api: Api, err_code_to_status_code: Dict[int, int] = {}
-) -> None:
+def setup_exception_handling(api: Api) -> None:
     """
     Register exeption handler that listens for Summ exceptions
         and send responses in json.
@@ -88,7 +86,7 @@ def setup_exception_handling(
 
     def handle(e: Exception):
         if isinstance(e, SuessException):
-            return responses.error(e.message, e.code, e.code)
+            return responses.error(e.message, e.code)
         else:
             return original_handle(e)
 

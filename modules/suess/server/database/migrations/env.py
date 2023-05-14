@@ -9,12 +9,7 @@ from sqlalchemy import engine_from_config, pool
 
 # Allows parent directory to be imported
 spec = importlib.util.spec_from_file_location(
-    "database",
-    str(
-        pathlib.Path(__file__)
-        .parent.parent.resolve()
-        .joinpath(pathlib.Path("./__init__.py"))
-    ),
+    "database", pathlib.Path(__file__).parent.resolve().joinpath("../__init__.py")
 )
 database = importlib.util.module_from_spec(spec)
 sys.modules["database"] = database
