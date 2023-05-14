@@ -3,10 +3,6 @@ FROM jaredhanson11/serverbase
 # Pickup security patches
 RUN apt-get update && apt-get upgrade -y
 
-# Allows requirements to be downloaded from custom pypi
-ARG PIP_EXTRA_INDEX_URL
-ARG PIP_TRUSTED_HOST
-
 # Install required packages
 COPY requirements.txt ./requirements.txt
 RUN apt-get install -y libpq-dev python3-dev gcc \
