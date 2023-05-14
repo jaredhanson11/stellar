@@ -51,7 +51,7 @@ class StoryThemesController(Resource):
         theme_id = post_data["theme_id"]
         story_manager.create_story_theme(story_id, theme_id)
         db.session.commit()
-        return responses.success({"message": "Success created"}, 201)
+        return responses.success({"message": "Successfully created"}, 201)
 
 
 api.add_resource(StoryThemesController, "/api/v1.0/stories/<uuid:story_id>/themes")
@@ -75,7 +75,7 @@ class StoryTopicsController(Resource):
         topic_id = post_data["topic_id"]
         story_manager.create_story_topic(story_id, topic_id)
         db.session.commit()
-        return responses.success({"message": "Success created"}, 201)
+        return responses.success({"message": "Successfully created"}, 201)
 
 
 api.add_resource(StoryTopicsController, "/api/v1.0/stories/<uuid:story_id>/topics")

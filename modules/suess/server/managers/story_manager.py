@@ -121,7 +121,7 @@ class StoryManager:
         story.pages.append(page)
         return page
 
-    def get_topic(self, topic_id: UUID):
+    def get_topic(self, topic_id: UUID) -> Topic:
         """Get a topic by it's id.
         Raises error if topic doesn't exist
 
@@ -131,13 +131,14 @@ class StoryManager:
         topic = self.session.query(Topic).get(topic_id)
         if not topic:
             raise SuessException(404, f"Topic not found with id=<{topic_id}>.")
+        return topic
 
     def get_topics(self):
         """Gets all topics"""
         topics = self.session.query(Topic).all()
         return topics
 
-    def get_theme(self, theme_id: UUID):
+    def get_theme(self, theme_id: UUID) -> Theme:
         """Get a theme by it's id.
         Raises error if theme doesn't exist
 
@@ -147,6 +148,7 @@ class StoryManager:
         theme = self.session.query(Theme).get(theme_id)
         if not theme:
             raise SuessException(404, f"Theme not found with id=<{theme_id}>.")
+        return theme
 
     def get_themes(self):
         """Gets all themes"""
