@@ -50,7 +50,7 @@ def upgrade() -> None:
     sa.Column('order', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['story_id'], ['stories.id'], name=op.f('fk_stories_to_themes_story_id_stories')),
     sa.ForeignKeyConstraint(['theme_id'], ['themes.id'], name=op.f('fk_stories_to_themes_theme_id_themes')),
-    sa.PrimaryKeyConstraint('story_id', 'theme_id', 'order', name=op.f('pk_stories_to_themes'))
+    sa.PrimaryKeyConstraint('story_id', 'theme_id', name=op.f('pk_stories_to_themes'))
     )
     op.create_table('stories_to_topics',
     sa.Column('story_id', postgresql.UUID(as_uuid=True), nullable=False),
@@ -58,7 +58,7 @@ def upgrade() -> None:
     sa.Column('order', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['story_id'], ['stories.id'], name=op.f('fk_stories_to_topics_story_id_stories')),
     sa.ForeignKeyConstraint(['topic_id'], ['topics.id'], name=op.f('fk_stories_to_topics_topic_id_topics')),
-    sa.PrimaryKeyConstraint('story_id', 'topic_id', 'order', name=op.f('pk_stories_to_topics'))
+    sa.PrimaryKeyConstraint('story_id', 'topic_id', name=op.f('pk_stories_to_topics'))
     )
     # ### end Alembic commands ###
 

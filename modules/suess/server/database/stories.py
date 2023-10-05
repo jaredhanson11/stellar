@@ -28,6 +28,7 @@ class Story(base.Base):
         "StoryToTheme",
         order_by="StoryToTheme.order",
         collection_class=ordering_list("order", reorder_on_append=True),
+        cascade="all, delete-orphan",
     )
 
     topics = association_proxy(
@@ -37,6 +38,7 @@ class Story(base.Base):
         "StoryToTopic",
         order_by="StoryToTopic.order",
         collection_class=ordering_list("order", reorder_on_append=True),
+        cascade="all, delete-orphan",
     )
 
     additional_context = Column(String)
@@ -70,7 +72,7 @@ class StoryToTheme(base.Base):
     story = relationship("Story")
     theme_id = Column(UUID(as_uuid=True), ForeignKey("themes.id"), primary_key=True)
     theme = relationship("Theme")
-    order = Column(Integer, primary_key=True)
+    order = Column(Integer)
 
 
 class Theme(base.Base):
@@ -86,7 +88,7 @@ class StoryToTopic(base.Base):
     story = relationship("Story")
     topic_id = Column(UUID(as_uuid=True), ForeignKey("topics.id"), primary_key=True)
     topic = relationship("Topic")
-    order = Column(Integer, primary_key=True)
+    order = Column(Integer)
 
 
 class Topic(base.Base):

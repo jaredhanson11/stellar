@@ -17,7 +17,7 @@ class StorySchema(Schema):
 
 class PageSchema(Schema):
     story_id = fields.UUID(dump_only=True)
-    page_number = fields.UUID(dump_only=True)
+    page_number = fields.Int(dump_only=True)
     input = fields.String()
     output = fields.String(dump_only=True)
     created_at = fields.AwareDateTime(default_timezone=timezone.utc, dump_only=True)
